@@ -1,0 +1,34 @@
+# Configuration file for <https://github.com/sapcc/go-makefile-maker>
+
+metadata:
+  url: https://github.com/sapcc/gochangelog_ci
+
+binaries:
+  - name:        gochangelog_ci
+    fromPackage: .
+    installTo:   bin/
+
+githubWorkflow:
+  global:
+    defaultBranch: main
+  ci:
+    enabled: true
+    coveralls: true
+    ignorePaths: [ "**.md" ] # all Markdown files
+  license:
+    enabled: true
+  securityChecks:
+    enabled: true
+  spellCheck:
+    enabled: true
+
+golangciLint:
+  createConfig: true
+
+renovate:
+  enabled: true
+  assignees:
+    - notandy
+
+dockerfile:
+  enabled: true
