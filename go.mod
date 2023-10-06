@@ -5,7 +5,7 @@ go 1.21.1
 require (
 	github.com/fatih/color v1.15.0
 	github.com/shurcooL/githubv4 v0.0.0-20230704064427-599ae7bbf278
-	golang.org/x/mod v0.12.0
+	golang.org/x/mod v0.13.0
 	golang.org/x/oauth2 v0.12.0
 )
 
