@@ -40,7 +40,7 @@ var goModFile = flag.String("go-mod-file", "go.mod", "path to go.mod file (defau
 var branch = flag.String("branch", "master", "branch to generate changelog for (default: master)")
 var repoOwner = flag.String("repo-owner", "", "owner of the repo")
 var repoName = flag.String("repo-name", "", "name of the repo")
-var repoUrl = flag.String("repo-url", "", "url of the repo, overrides repo-owner and repo-name")
+var repoURL = flag.String("repo-url", "", "url of the repo, overrides repo-owner and repo-name")
 var flagNoColor = flag.Bool("no-color", false, "Disable color output")
 
 type gitHistory []struct {
@@ -139,8 +139,8 @@ func main() {
 	httpClient := oauth2.NewClient(context.Background(), src)
 	gh := ghClient{githubv4.NewClient(httpClient)}
 
-	if repoUrl != nil {
-		u, err := url.Parse(*repoUrl)
+	if repoURL != nil {
+		u, err := url.Parse(*repoURL)
 		if err != nil {
 			panic(err)
 		}
