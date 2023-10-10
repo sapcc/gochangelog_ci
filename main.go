@@ -24,7 +24,9 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"net/url"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/fatih/color"
@@ -38,6 +40,7 @@ var goModFile = flag.String("go-mod-file", "go.mod", "path to go.mod file (defau
 var branch = flag.String("branch", "master", "branch to generate changelog for (default: master)")
 var repoOwner = flag.String("repo-owner", "", "owner of the repo")
 var repoName = flag.String("repo-name", "", "name of the repo")
+var repoUrl = flag.String("repo-url", "", "url of the repo, overrides repo-owner and repo-name")
 var flagNoColor = flag.Bool("no-color", false, "Disable color output")
 
 type gitHistory []struct {
@@ -130,14 +133,28 @@ func main() {
 		color.NoColor = true // disables colorized output
 	}
 
-	commitA := flag.Arg(0)
-	commitB := flag.Arg(1)
-
 	src := oauth2.StaticTokenSource(
 		&oauth2.Token{AccessToken: *githubToken},
 	)
 	httpClient := oauth2.NewClient(context.Background(), src)
 	gh := ghClient{githubv4.NewClient(httpClient)}
+
+	if repoUrl != nil {
+		u, err := url.Parse(*repoUrl)
+		if err != nil {
+			panic(err)
+		}
+		p := strings.Split(strings.Trim(u.Path, "/"), "/")
+		repoOwner = &p[0]
+		repoName = &p[1]
+
+		if u.Host != "github.com" {
+			gh = ghClient{githubv4.NewEnterpriseClient(u.Scheme+"://"+u.Host+"/api/graphql", httpClient)}
+		}
+	}
+
+	commitA := flag.Arg(0)
+	commitB := flag.Arg(1)
 
 	since, err := gh.commit2time(commitA)
 	if err != nil {
