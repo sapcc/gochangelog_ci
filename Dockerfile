@@ -15,7 +15,7 @@ RUN addgroup -g 4200 appgroup \
 
 # upgrade all installed packages to fix potential CVEs in advance
 RUN apk upgrade --no-cache --no-progress \
-  && apk add --no-cache --no-progress ca-certificates
+  && apk add --no-cache --no-progress ca-certificates jq
 
 COPY --from=builder /pkg/ /usr/
 
