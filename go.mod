@@ -1,6 +1,6 @@
 module github.com/sapcc/gochangelog_ci
 
-go 1.21.1
+go 1.21.4
 
 require (
 	github.com/fatih/color v1.15.0
