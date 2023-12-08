@@ -1,12 +1,12 @@
 module github.com/sapcc/gochangelog_ci
 
-go 1.21.4
+go 1.21.5
 
 require (
-	github.com/fatih/color v1.15.0
-	github.com/shurcooL/githubv4 v0.0.0-20230704064427-599ae7bbf278
-	golang.org/x/mod v0.13.0
-	golang.org/x/oauth2 v0.12.0
+	github.com/fatih/color v1.16.0
+	github.com/shurcooL/githubv4 1cffa1f02456
+	golang.org/x/mod v0.14.0
+	golang.org/x/oauth2 v0.15.0
 )
 
 require (
