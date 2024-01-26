@@ -19,8 +19,6 @@ githubWorkflow:
     enabled: true
   securityChecks:
     enabled: true
-  spellCheck:
-    enabled: true
 
 golang:
   setGoModVersion: true

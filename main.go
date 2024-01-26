@@ -171,11 +171,13 @@ func main() {
 	}
 
 	// Print Changelog
-	if len(history) != 0 {
-		fmt.Println("Changelog:")
-		for _, n := range history {
-			fmt.Printf("  %s %s\n", n.OID, color.YellowString(n.Message))
+	fmt.Println("Changelog:")
+	for _, n := range history {
+		if n.OID == commitA {
+			// skip "from commit"
+			continue
 		}
+		fmt.Printf("  %s %s\n", n.OID, color.YellowString(n.Message))
 	}
 
 	// Print go.mod changes

@@ -4,7 +4,7 @@
 ################################################################################
 
 run:
-  deadline: 3m # 1m by default
+  timeout: 3m # 1m by default
   modules-download-mode: readonly
 
 output:
@@ -39,8 +39,8 @@ linters-settings:
       - ^ioutil\..*$
       # Using http.DefaultServeMux is discouraged because it's a global variable that some packages silently and magically add handlers to (esp. net/http/pprof).
       # Applications wishing to use http.ServeMux should obtain local instances through http.NewServeMux() instead of using the global default instance.
-      - ^http.DefaultServeMux$
-      - ^http.Handle(?:Func)?$
+      - ^http\.DefaultServeMux$
+      - ^http\.Handle(?:Func)?$
   gocritic:
     enabled-checks:
       - boolExprSimplify
@@ -91,7 +91,8 @@ linters-settings:
     http-method: true
     http-status-code: true
     os-dev-null: true
-    rpc-default-path: true
+    sql-isolation-level: true
+    syslog-priority: true
     time-weekday: true
     time-month: true
     time-layout: true
@@ -127,6 +128,7 @@ linters:
     - noctx
     - nolintlint
     - nosprintfhostport
+    - perfsprint
     - rowserrcheck
     - sqlclosecheck
     - staticcheck
