@@ -10,8 +10,10 @@
   ],
   "commitMessageAction": "Renovate: Update",
   "constraints": {
-    "go": "1.21.5"
+    "go": "1.22.5"
   },
+  "dependencyDashboardOSVVulnerabilitySummary": "all",
+  "osvVulnerabilityAlerts": true,
   "postUpdateOptions": [
     "gomodTidy",
     "gomodUpdateImportPaths"
@@ -21,7 +23,7 @@
       "matchPackageNames": [
         "golang"
       ],
-      "allowedVersions": "1.21.5.x"
+      "allowedVersions": "1.22.5.x"
     },
     {
       "matchPackagePatterns": [
