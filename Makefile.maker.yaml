@@ -33,4 +33,4 @@ renovate:
 
 dockerfile:
   enabled: true
-  extraPackages: [jq, ca-certificates, openssl]
+  extraPackages: [jq, ca-certificates, openssl, bash]
