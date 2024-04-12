@@ -42,6 +42,7 @@ var repoOwner = flag.String("repo-owner", "", "owner of the repo")
 var repoName = flag.String("repo-name", "", "name of the repo")
 var repoURL = flag.String("repo-url", "", "url of the repo, overrides repo-owner and repo-name")
 var flagNoColor = flag.Bool("no-color", false, "Disable color output")
+var version = flag.Bool("version", false, "Print version and exit")
 
 type gitHistory []struct {
 	OID     string
@@ -124,6 +125,13 @@ func (gh *ghClient) getFile(ref string) ([]byte, error) {
 
 func main() {
 	flag.Parse()
+
+	// for **** go-makefile-maker dockerfile to work
+	if *version {
+		print("Version: SomeVersion(tm)\n")
+		os.Exit(0)
+	}
+
 	if flag.NArg() != 2 {
 		flag.Usage()
 		print("  required positional argument: Commit-A Commit-B\n")
