@@ -21,7 +21,7 @@ githubWorkflow:
     enabled: true
 
 golang:
-  setGoModVersion: false
+  setGoModVersion: true
 
 golangciLint:
   createConfig: true
