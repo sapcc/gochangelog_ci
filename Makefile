@@ -41,6 +41,9 @@ install: FORCE build/gochangelog_ci
 
 # which packages to test with test runner
 GO_TESTPKGS := $(shell go list -f '{{if or .TestGoFiles .XTestGoFiles}}{{.ImportPath}}{{end}}' ./...)
+ifeq ($(GO_TESTPKGS),)
+GO_TESTPKGS := ./...
+endif
 # which packages to measure coverage for
 GO_COVERPKGS := $(shell go list ./...)
 # to get around weird Makefile syntax restrictions, we need variables containing nothing, a space and comma
@@ -57,7 +60,7 @@ run-golangci-lint: FORCE prepare-static-check
 
 build/cover.out: FORCE | build
 	@printf "\e[1;36m>> Running tests\e[0m\n"
-	@env $(GO_TESTENV) go test -shuffle=on $(GO_BUILDFLAGS) -ldflags '-s -w $(GO_LDFLAGS)' -p 1 -coverprofile=$@ -covermode=count -coverpkg=$(subst $(space),$(comma),$(GO_COVERPKGS)) $(GO_TESTPKGS)
+	@env $(GO_TESTENV) go test -shuffle=on -p 1 -coverprofile=$@ $(GO_BUILDFLAGS) -ldflags '-s -w $(GO_LDFLAGS)' -covermode=count -coverpkg=$(subst $(space),$(comma),$(GO_COVERPKGS)) $(GO_TESTPKGS)
 
 build/cover.html: build/cover.out
 	@printf "\e[1;36m>> go tool cover > build/cover.html\e[0m\n"
