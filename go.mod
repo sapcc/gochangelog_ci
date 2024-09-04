@@ -4,9 +4,9 @@ go 1.22.0
 
 require (
 	github.com/fatih/color v1.17.0
-	github.com/shurcooL/githubv4 v0.0.0-20240429030203-be2daab69064
-	golang.org/x/mod v0.17.0
-	golang.org/x/oauth2 v0.20.0
+	github.com/shurcooL/githubv4 v0.0.0-20240727222349-48295856cce7
+	golang.org/x/mod v0.21.0
+	golang.org/x/oauth2 v0.23.0
 )
 
 require (
