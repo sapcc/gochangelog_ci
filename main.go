@@ -147,7 +147,7 @@ func main() {
 	httpClient := oauth2.NewClient(context.Background(), src)
 	gh := ghClient{githubv4.NewClient(httpClient)}
 
-	if repoURL != nil {
+	if repoURL != nil && *repoURL != "" {
 		u, err := url.Parse(*repoURL)
 		if err != nil {
 			panic(err)
@@ -207,6 +207,10 @@ func main() {
 	goModB, err := modfile.Parse(nameB, contentB, nil)
 	if err != nil {
 		log.Fatal(err)
+	}
+
+	if goModA.Go == nil || goModB.Go == nil {
+		return
 	}
 
 	fmt.Println("Changes in go.mod:")
