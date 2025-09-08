@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2025 SAP SE or an SAP affiliate company
+
+SPDX-License-Identifier: Apache-2.0
+-->
+
 # gochangelog_ci
 
 A changelog generator for GitHub based Go projects that uses the GitHub API to generate a changelog based on the commit messages.
