@@ -1,4 +1,7 @@
-FROM golang:1.23.1-alpine3.20 AS builder
+# SPDX-FileCopyrightText: 2025 SAP SE or an SAP affiliate company
+# SPDX-License-Identifier: Apache-2.0
+
+FROM golang:1.25.1-alpine3.22 AS builder
 
 RUN apk add --no-cache --no-progress ca-certificates gcc git make musl-dev
 
@@ -8,7 +11,7 @@ RUN make -C /src install PREFIX=/pkg GOTOOLCHAIN=local
 
 ################################################################################
 
-FROM alpine:3.20
+FROM alpine:3.22
 
 RUN addgroup -g 4200 appgroup \
   && adduser -h /home/appuser -s /sbin/nologin -G appgroup -D -u 4200 appuser
@@ -17,13 +20,14 @@ RUN addgroup -g 4200 appgroup \
 # also remove apk package manager to hopefully remove dependency on OpenSSL 🤞
 RUN apk upgrade --no-cache --no-progress \
   && apk add --no-cache --no-progress jq ca-certificates openssl bash \
-  && apk del --no-cache --no-progress apk-tools alpine-keys
+  && apk del --no-cache --no-progress apk-tools alpine-keys alpine-release libc-utils
 
 COPY --from=builder /etc/ssl/certs/ /etc/ssl/certs/
 COPY --from=builder /etc/ssl/cert.pem /etc/ssl/cert.pem
 COPY --from=builder /pkg/ /usr/
 # make sure all binaries can be executed
-RUN gochangelog_ci --version 2>/dev/null
+RUN set -x \
+  && gochangelog_ci --version 2>/dev/null
 
 ARG BININFO_BUILD_DATE BININFO_COMMIT_HASH BININFO_VERSION
 LABEL source_repository="https://github.com/sapcc/gochangelog_ci" \
