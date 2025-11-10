@@ -49,7 +49,7 @@ func (gh *ghClient) commit2time(commit string) (time.Time, error) {
 		} `graphql:"repository(owner: $repoOwner, name: $repoName)"`
 	}
 
-	if err := gh.Query(context.Background(), &q, map[string]interface{}{
+	if err := gh.Query(context.Background(), &q, map[string]any{
 		"repoOwner": githubv4.String(*repoOwner),
 		"repoName":  githubv4.String(*repoName),
 		"commit":    githubv4.String(commit),
@@ -74,7 +74,7 @@ func (gh *ghClient) getDiff(since, until time.Time) (gitHistory, error) {
 			} `graphql:"object(expression: $branch)"`
 		} `graphql:"repository(owner: $repoOwner, name: $repoName)"`
 	}
-	if err := gh.Query(context.Background(), &q, map[string]interface{}{
+	if err := gh.Query(context.Background(), &q, map[string]any{
 		"repoOwner": githubv4.String(*repoOwner),
 		"repoName":  githubv4.String(*repoName),
 		"branch":    githubv4.String(*branch),
@@ -97,7 +97,7 @@ func (gh *ghClient) getFile(ref string) ([]byte, error) {
 			} `graphql:"object(expression: $expression)"`
 		} `graphql:"repository(owner: $repoOwner, name: $repoName)"`
 	}
-	if err := gh.Query(context.Background(), &q, map[string]interface{}{
+	if err := gh.Query(context.Background(), &q, map[string]any{
 		"repoOwner":  githubv4.String(*repoOwner),
 		"repoName":   githubv4.String(*repoName),
 		"expression": githubv4.String(ref),
